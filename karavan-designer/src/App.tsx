@@ -215,9 +215,9 @@ class App extends React.Component<Props, State> {
                 <>
                     <Flex direction={{default: "row"}} style={{width: "100%", height: "100%"}}
                           alignItems={{default: "alignItemsStretch"}} spaceItems={{default: 'spaceItemsNone'}}>
-                        <FlexItem>
+                        {/* <FlexItem>
                             {this.pageNav()}
-                        </FlexItem>
+                        </FlexItem> */}
                         <FlexItem flex={{default: "flex_2"}} style={{height: "100%"}}>
                             {loaded !== true && this.getSpinner()}
                             {loaded === true && this.getPage()}
