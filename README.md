@@ -18,6 +18,8 @@ yarn install </br>
 
 - To build a designer page for dirigible: </br>
 yarn build </br>
+rm -rf /build/components/.gitignore
+rm -rf /build/kamelets/.gitignore
 Copy the files from camel-karavan/karavan-designer/build folder into → </br>
 dirigible/components/ide-ui-integrations/src/main/resources/META-INF/dirigible/camel/designer </br>
 
