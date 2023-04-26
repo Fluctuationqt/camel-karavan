@@ -94,11 +94,16 @@ class App extends React.Component<Props, State> {
     }
 
     componentDidMount() {
+        // @ts-ignore
+        const fileName = window.getFileName();
+        // @ts-ignore
+        const baseUrl = window.getBaseUrl();
         Promise.all([
-            fetch("kamelets/kamelets.yaml"),
-            fetch("components/components.json"),
-            fetch("snippets/org.apache.camel.AggregationStrategy"),
-            fetch("snippets/org.apache.camel.Processor")
+            fetch("designer/kamelets/kamelets.yaml"),
+            fetch("designer/components/components.json"),
+            fetch("designer/snippets/org.apache.camel.AggregationStrategy"),
+            fetch("designer/snippets/org.apache.camel.Processor"),
+            fetch(baseUrl+fileName),
             // fetch("components/supported-components.json"),
         ]).then(responses =>
             Promise.all(responses.map(response => response.text()))
@@ -118,10 +123,14 @@ class App extends React.Component<Props, State> {
             TemplateApi.saveTemplate("org.apache.camel.AggregationStrategy", data[2]);
             TemplateApi.saveTemplate("org.apache.camel.Processor", data[3]);
 
-            if (data[4]) {
+            console.log(data[4]);
+
+            if (data[5]) {
                 ComponentApi.saveSupportedComponents(data[4]);
                 ComponentApi.setSupportedOnly(true);
             }
+            // @ts-ignore
+            window.setStateBusy(false);
         }).catch(err =>
             this.toast("Error", err.text, 'danger')
         );
@@ -129,7 +138,6 @@ class App extends React.Component<Props, State> {
 
     save(filename: string, yaml: string, propertyOnly: boolean) {
         this.setState({name: filename, yaml: yaml});
-        // console.log(yaml);
     }
 
     getSpinner() {
