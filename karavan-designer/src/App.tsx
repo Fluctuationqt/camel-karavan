@@ -118,7 +118,7 @@ class App extends React.Component<Props, State> {
             ComponentApi.saveComponents(jsons, true);
 
             this.toast("Success", "Loaded " + jsons.length + " components", 'success');
-            this.setState({loaded: true});
+            this.setState({loaded: true, yaml: data[4], name: fileName});
 
             TemplateApi.saveTemplate("org.apache.camel.AggregationStrategy", data[2]);
             TemplateApi.saveTemplate("org.apache.camel.Processor", data[3]);
@@ -131,6 +131,7 @@ class App extends React.Component<Props, State> {
             }
             // @ts-ignore
             window.setStateBusy(false);
+            (window as any).designerApp = this;
         }).catch(err =>
             this.toast("Error", err.text, 'danger')
         );
